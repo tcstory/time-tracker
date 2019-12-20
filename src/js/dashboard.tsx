@@ -1,12 +1,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-let x = 1;
+import HistoryPanel from './components/HistoryPanel/';
 
-console.log(x);
+require('../css/reset.css');
+require('../css/dashboard.css');
+require('../icons/icon-34.png');
 
 ReactDOM.render(
-  <h1>吃饭了吗1!!!! meiyou o </h1>,
+  <main>
+    <HistoryPanel/>
+  </main>,
   document.getElementById("root")
 );
 

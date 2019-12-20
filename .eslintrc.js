@@ -23,9 +23,10 @@ module.exports = {
         }
     },
     rules: {
-        'prefer-const': 0,
+        "prefer-const": 0,
         "semi": ["error", "always"],
         "indent": ["error", 2],
-        "space-infix-ops": ["error", { "int32Hint": false }]
+        "space-infix-ops": ["error", { "int32Hint": false }],
+        '@typescript-eslint/no-var-requires': ['off'],
     }
 };

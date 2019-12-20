@@ -1,19 +1,10 @@
 {
   "manifest_version": 2,
-  "name": "Borderify?2",
+  "name": "time tracker",
   "version": "1.0",
-  "description": "Adds a red border to all webpages matching mozilla.org!!!!.",
+  "description": "time tracker",
   "icons": {
-    "48": "icons/border-34.png"
+    "48": "assets/icon-34.png"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.mozilla.org/*"
-      ],
-      "js": [
-        "borderify.js"
-      ]
-    }
-  ]
+  "content_scripts": []
 }
