@@ -1,0 +1,43 @@
+{
+  "name": "firefox-extension-webpack",
+  "version": "0.0.1",
+  "description": "A boilerplate to firefox extension with webpack",
+  "scripts": {
+    "build": "bash ./utils/clean.sh && NODE_ENV=production webpack",
+    "start": "bash ./utils/clean.sh && webpack --watch",
+    "clean": "bash ./utils/clean.sh"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "@babel/core": "7.7.4",
+    "@babel/preset-react": "7.7.4",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "babel-loader": "8.0.6",
+    "clean-webpack-plugin": "3.0.0",
+    "copy-webpack-plugin": "5.0.5",
+    "css-loader": "3.2.0",
+    "eslint": "^6.7.2",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-react": "^7.17.0",
+    "file-loader": "4.3.0",
+    "fs-extra": "8.1.0",
+    "html-loader": "0.5.5",
+    "html-webpack-plugin": "3.2.0",
+    "react-hot-loader": "4.12.18",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "1.0.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3",
+    "web-ext": "^3.2.1",
+    "webpack": "4.41.2",
+    "webpack-cli": "3.3.10",
+    "webpack-dev-server": "3.9.0",
+    "write-file-webpack-plugin": "4.5.1"
+  }
+}
