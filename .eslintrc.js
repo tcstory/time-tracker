@@ -28,5 +28,6 @@ module.exports = {
         "indent": ["error", 2],
         "space-infix-ops": ["error", { "int32Hint": false }],
         '@typescript-eslint/no-var-requires': ['off'],
+        "@typescript-eslint/ban-ts-ignore": ["off"]
     }
 };

@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 let options = {
   mode: process.env.NODE_ENV || "development",
   entry: {
-    dashboard: path.join(__dirname, "src/js/dashboard.tsx"),
+    dashboard: path.join(__dirname, "src/dashboard.tsx"),
   },
   output: {
     path: path.join(__dirname, "build"),
