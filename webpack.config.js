@@ -4,6 +4,22 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+let vendorFiles = [];
+
+if (process.env.NODE_ENV === 'production') {
+  vendorFiles=  [
+    {from: './node_modules/react/umd/react.production.min.js', to: './vendor/react.js'},
+    {from: './node_modules/react-dom/umd/react-dom.production.min.js', to: './vendor/react-dom.js'},
+    {from: './node_modules/rxjs/bundles/rxjs.umd.min.js', to: './vendor/rxjs.umd.js'},
+  ]
+} else {
+  vendorFiles =  [
+    {from: './node_modules/react/umd/react.development.js', to: './vendor/react.js'},
+    {from: './node_modules/react-dom/umd/react-dom.development.js', to: './vendor/react-dom.js'},
+    {from: './node_modules/rxjs/bundles/rxjs.umd.js', to: './vendor/rxjs.umd.js'},
+  ]
+}
+
 let options = {
   mode: process.env.NODE_ENV || "development",
   entry: {
@@ -105,10 +121,7 @@ let options = {
         }));
       }
     }]),
-    new CopyWebpackPlugin([
-      {from: './node_modules/react/umd/react.development.js', to: './vendor/'},
-      {from: './node_modules/react-dom/umd/react-dom.development.js', to: './vendor/'},
-    ]),
+    new CopyWebpackPlugin(vendorFiles),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src/dashboard.html"),
       filename: "dashboard.html",

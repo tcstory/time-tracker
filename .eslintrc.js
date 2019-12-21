@@ -25,9 +25,11 @@ module.exports = {
     rules: {
         "prefer-const": 0,
         "semi": ["error", "always"],
-        "indent": ["error", 2],
+        "indent": ["error", 2, { SwitchCase: 1 }],
         "space-infix-ops": ["error", { "int32Hint": false }],
         '@typescript-eslint/no-var-requires': ['off'],
-        "@typescript-eslint/ban-ts-ignore": ["off"]
+        "@typescript-eslint/ban-ts-ignore": ["off"],
+        "@typescript-eslint/no-explicit-any": ["off"],
+        "@typescript-eslint/explicit-function-return-type": ["off"]
     }
 };

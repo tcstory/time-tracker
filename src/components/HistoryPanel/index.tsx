@@ -1,40 +1,46 @@
 import * as React from "react";
-import {connect} from 'react-redux';
 
-import {ping} from '../../redux/reducers/pingReducer';
+import {HistoryItemType, historyStore} from "../../modals/history";
 
 const style = require('./index.css');
 
-class HistoryPanel extends React.Component<{ isPinging: boolean }, {}> {
-  constructor(...args: any) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    super(...args);
+class HistoryPanel extends React.Component<{}, { historyItems: HistoryItemType[] }> {
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      historyItems: [],
+    };
 
     this.onClick = this.onClick.bind(this);
   }
 
   onClick() {
-    // @ts-ignore
-    this.props.ping();
+    historyStore.search({text: ''});
+  }
+
+  componentDidMount() {
+    historyStore.historyItems$.subscribe((payload) => {
+      this.setState({
+        historyItems: payload
+      });
+    });
+
+    historyStore.search({text: ''});
   }
 
   render() {
-    console.log('===>', this.props)
-    return <p className={style['is-red']}>
-      status:
-      {this.props.isPinging ? 'true' : 'false'}
-
-      <button onClick={this.onClick}>click me</button>
-    </p>;
+    return (
+      <div className={style['is-red']}>
+        <ul>
+          {this.state.historyItems.map((item) => {
+            return <li key={item.id}>{item.title}</li>;
+          })}
+        </ul>
+        <button onClick={this.onClick}>click me!!!!</button>
+      </div>
+    );
   }
 }
 
-export default connect(
-  function (state) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    return {isPinging: state.ping.isPinging};
-  },
-  {ping}
-)(HistoryPanel);
+export default HistoryPanel;
