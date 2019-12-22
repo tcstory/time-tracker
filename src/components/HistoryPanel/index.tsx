@@ -2,14 +2,25 @@ import * as React from "react";
 
 import {HistoryItemType, historyStore} from "../../modals/history";
 
-const style = require('./index.css');
+const styles = require('./index.scss');
 
-class HistoryPanel extends React.Component<{}, { historyItems: HistoryItemType[] }> {
+import HistoryItem from './HistoryItem';
+
+interface StateType {
+  historyItems: HistoryItemType[];
+  menuItems: { label: string }[];
+}
+
+class HistoryPanel extends React.Component<{}, StateType> {
   constructor(props: any) {
     super(props);
 
     this.state = {
       historyItems: [],
+      menuItems: [
+        {label: '星期二, 2019年12月17日(今天)'},
+        {label: '星期一, 2019年12月16日'},
+      ]
     };
 
     this.onClick = this.onClick.bind(this);
@@ -21,6 +32,7 @@ class HistoryPanel extends React.Component<{}, { historyItems: HistoryItemType[]
 
   componentDidMount() {
     historyStore.historyItems$.subscribe((payload) => {
+      console.log('length=', payload.length);
       this.setState({
         historyItems: payload
       });
@@ -30,15 +42,38 @@ class HistoryPanel extends React.Component<{}, { historyItems: HistoryItemType[]
   }
 
   render() {
+    const {menuItems, historyItems} = this.state;
+
+    let titles: React.ReactNode[] = [];
+    let urls: React.ReactNode[] = [];
+
+    historyItems.forEach(function (item) {
+      titles.push(<div>{item.title}</div>);
+      urls.push(<div>{item.url}</div>);
+    });
+
     return (
-      <div className={style['is-red']}>
-        <ul>
-          {this.state.historyItems.map((item) => {
-            return <li key={item.id}>{item.title}</li>;
-          })}
-        </ul>
-        <button onClick={this.onClick}>click me!!!!</button>
-      </div>
+      <section className={styles['panel']}>
+        <div className={styles['date-col']}>
+          <div className={styles['title']}>日期</div>
+          {
+            menuItems.map(function (item) {
+              return <div className={styles['menu-item']} key={item.label}>
+                {item.label}
+              </div>;
+            })
+          }
+        </div>
+        <div className={styles['title-col']}>
+          <div className={styles['title']}>标题</div>
+          {titles}
+        </div>
+        <div className={styles['url-col']}>
+          <div className={styles['title']}>地址</div>
+          {urls}
+        </div>
+        <button className="button is-primary">Primary</button>
+      </section>
     );
   }
 }

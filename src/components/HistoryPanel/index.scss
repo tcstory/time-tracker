@@ -1,0 +1,38 @@
+.panel {
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  word-wrap:break-word;
+  word-break:break-all;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: bold;
+  height: 24px;
+  line-height: 24px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.date-col {
+  width: 200px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.title-col {
+  width: 240px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.url-col {
+  width: 240px;
+  flex-grow: 3;
+  flex-shrink: 0;
+}
+
+.menu-item {
+  height: 24px;
+  line-height: 24px;
+}

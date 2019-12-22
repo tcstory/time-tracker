@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+require('./css/mystyles.scss');
 import HistoryPanel from './components/HistoryPanel';
 
-require('./css/reset.css');
-require('./css/dashboard.css');
+require('./css/dashboard.scss');
 require('./icons/icon-34.png');
 
 ReactDOM.render(

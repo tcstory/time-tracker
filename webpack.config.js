@@ -44,7 +44,7 @@ let options = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -59,11 +59,34 @@ let options = {
               modules: {
                 mode: 'local',
                 localIdentName: '[local]__[hash:5]',
+                context: path.resolve(__dirname, 'src'),
               }
             }
+          },
+          {
+            loader: 'sass-loader',
           }
         ],
-        exclude: /node_modules/
+        exclude: [/node_modules/, path.resolve(__dirname, 'src/css/mystyles.scss')]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: './',
+              hmr: false,
+            },
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
+          }
+        ],
+        include: path.resolve(__dirname, 'src/css/mystyles.scss')
       },
       {
         test: new RegExp('\.(' + ["jpg", "jpeg", "png", "gif", "eot", "otf", "svg", "ttf", "woff", "woff2"].join('|') + ')$'),
