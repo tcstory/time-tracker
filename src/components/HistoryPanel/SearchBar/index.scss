@@ -1,0 +1,15 @@
+.search-bar {
+  height: 36px;
+}
+
+.input-wrap {
+  width: 240px;
+  position: relative;
+}
+
+
+.clear-btn {
+  position: absolute;
+  right: 8px;
+  top: calc(50% - 8px);
+}

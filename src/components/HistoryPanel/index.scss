@@ -1,17 +1,28 @@
-.panel {
-  display: flex;
-  background-color: white;
-  border-radius: 8px;
-  word-wrap:break-word;
-  word-break:break-all;
+@import "common";
+
+@mixin headerCol() {
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.title {
-  font-size: 12px;
-  font-weight: bold;
-  height: 24px;
-  line-height: 24px;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+.panel {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.content-wrap {
+  word-wrap:break-word;
+  word-break:break-all;
+  display: flex;
+}
+
+
+.content {
+  flex-grow: 1;
+}
+
+.cols {
+  display: flex;
 }
 
 .date-col {
@@ -20,19 +31,24 @@
   flex-shrink: 0;
 }
 
+.title {
+  @include headerCol();
+}
+
 .title-col {
-  width: 240px;
-  flex-grow: 1;
-  flex-shrink: 0;
+  @include baseCol(1);
+  @include headerCol();
 }
 
 .url-col {
-  width: 240px;
-  flex-grow: 3;
-  flex-shrink: 0;
+  @include baseCol(2);
+  @include headerCol();
+}
+
+.op-col {
+  @include opCol();
 }
 
 .menu-item {
-  height: 24px;
-  line-height: 24px;
+  @include item();
 }

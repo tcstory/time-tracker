@@ -1,5 +1,13 @@
 @charset "utf-8";
-//@import "~bulma/bulma";
+
+$input-focus-border-color: hsl(171, 100%, 41%);
+$input-focus-box-shadow-color: rgba($input-focus-border-color, 0.25);
 
 @import "~bulma/sass/utilities/_all.sass";
-@import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/elements/_all.sass";
+@import "~bulma/sass/form/shared.sass";
+@import "~bulma/sass/form/input-textarea.sass";
+@import "~bulma/sass/components/modal.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/components/message.sass";

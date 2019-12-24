@@ -1,0 +1,27 @@
+@mixin baseCol($grow) {
+  width: 240px;
+  flex-grow: $grow;
+  flex-shrink: 0;
+}
+
+@mixin opCol() {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+
+  & > :global(.checkbox) {
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+}
+
+@mixin item() {
+  height: 24px;
+  line-height: 24px;
+}
+
+$my-primary-color: hsl(171, 100%, 41%);

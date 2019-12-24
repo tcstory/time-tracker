@@ -1,0 +1,33 @@
+@import "../common";
+
+@mixin textOverflow() {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.cols {
+  display: flex;
+}
+
+.cols:hover {
+  background-color: $my-primary-color;
+  color: white;
+  transition: all 150ms;
+}
+
+.title-item {
+  @include baseCol(1);
+  @include item();
+  @include textOverflow();
+}
+
+.url-item {
+  @include baseCol(2);
+  @include item();
+  @include textOverflow();
+}
+
+.op-item {
+  @include opCol();
+}
