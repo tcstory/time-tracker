@@ -3,7 +3,6 @@ import {BehaviorSubject, Subject} from "rxjs";
 
 import {
   HISTORY_ITEM_DELETE,
-  HISTORY_ITEM_SEARCH,
   HISTORY_ITEMS_DELETE, HISTORY_ITEMS_DELETE_INFO,
   HistoryItemType,
   historyStore
@@ -26,6 +25,7 @@ interface StateType {
   menuItems: { label: string }[];
 }
 
+const HISTORY_ITEM_SEARCH = 'history_item_search';
 const ADD_TO_READY_TO_DELETED_HISTORY_ITEMS = 'add_to_ready_to_deleted_history_items';
 const ADD_ALL_TO_READY_TO_DELETED_HISTORY_ITEMS = 'add_all_to_ready_to_deleted_history_items';
 
@@ -41,6 +41,7 @@ class HistoryPanel extends React.Component<{}, StateType> {
     this.handleConfirmDeleteHistory = this.handleConfirmDeleteHistory.bind(this);
     this.handleSelectDeletedHistoryItem = this.handleSelectDeletedHistoryItem.bind(this);
     this.handleSelectAllHistoryItem = this.handleSelectAllHistoryItem.bind(this);
+    this.handleSearchHistory = this.handleSearchHistory.bind(this);
 
 
     this.state = {
@@ -85,19 +86,14 @@ class HistoryPanel extends React.Component<{}, StateType> {
     });
   }
 
-  handleSearchHistory(key:string) {
-    console.log('search', key)
+  handleSearchHistory(text: string) {
+    this.subject$.next({
+      type: HISTORY_ITEM_SEARCH,
+      payload: {text,}
+    });
   }
 
   componentDidMount() {
-    historyStore.historyItems$.subscribe((payload) => {
-      this.setState({
-        historyItems: payload.map(function (item) {
-          return {...item, isChecked: false};
-        })
-      });
-    });
-
     historyStore.subject$.subscribe({
       next: (action: ActionType) => {
         if (action.type === HISTORY_ITEMS_DELETE_INFO) {
@@ -112,7 +108,13 @@ class HistoryPanel extends React.Component<{}, StateType> {
 
     this.subject$.subscribe((action) => {
       if (action.type === HISTORY_ITEM_SEARCH) {
-        historyStore.search(action.payload);
+        historyStore.search(action.payload).then( (payload) =>{
+          this.setState({
+            historyItems: payload.map(function (item) {
+              return {...item, isChecked: false};
+            })
+          });
+        });
       }
 
       if (action.type === ADD_TO_READY_TO_DELETED_HISTORY_ITEMS) {

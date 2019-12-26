@@ -9,7 +9,7 @@ interface StateType {
 }
 
 interface PropsType {
-  handleSearchHistory: (key: string) => void;
+  handleSearchHistory: (text: string) => void;
 }
 
 export default class SearchBar extends React.PureComponent<PropsType, StateType> {
