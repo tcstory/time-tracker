@@ -1,5 +1,5 @@
-@mixin baseCol($grow) {
-  width: 240px;
+@mixin baseCol($grow, $width: 240px) {
+  width: $width;
   flex-grow: $grow;
   flex-shrink: 0;
 }

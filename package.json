@@ -8,6 +8,7 @@
     "clean": "bash ./utils/clean.sh"
   },
   "dependencies": {
+    "date-fns": "^2.8.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "rxjs": "^6.5.3"

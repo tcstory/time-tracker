@@ -25,9 +25,8 @@
 }
 
 .date-col {
-  width: 200px;
-  display: inline-block;
-  flex-shrink: 0;
+  @include baseCol(0, 180px);
+  @include headerCol();
 }
 
 .title {
@@ -48,6 +47,13 @@
   @include opCol();
 }
 
-.menu-item {
-  @include item();
+.visit-count-col {
+  @include baseCol(0, 60px);
+  @include headerCol();
+}
+
+.date-row {
+  height: 24px;
+  line-height: 24px;
+  font-weight: bold;
 }

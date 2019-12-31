@@ -1,5 +1,7 @@
 import * as React from "react";
 import {BehaviorSubject, Subject} from "rxjs";
+import {startOfToday, endOfToday, endOfDay, getTime} from "date-fns";
+
 
 import {
   HISTORY_ITEM_DELETE,
@@ -30,6 +32,23 @@ const ADD_TO_READY_TO_DELETED_HISTORY_ITEMS = 'add_to_ready_to_deleted_history_i
 const ADD_ALL_TO_READY_TO_DELETED_HISTORY_ITEMS = 'add_all_to_ready_to_deleted_history_items';
 
 
+function mergeHistoryItems(historyItems: HistoryItemType[]) {
+  let dateMap: {[key: string]: HistoryItemType[]} = {};
+
+
+  for (let item of historyItems) {
+    let time = getTime(endOfDay(item.lastVisitTime));
+
+    if (dateMap[time]) {
+      dateMap[time].push(item);
+    } else {
+      dateMap[time] = [item];
+    }
+  }
+
+  console.log(dateMap);
+}
+
 class HistoryPanel extends React.Component<{}, StateType> {
   subject$: Subject<ActionType>;
   readyToBeDeletedHistoryItems$: BehaviorSubject<string[]>;
@@ -37,7 +56,6 @@ class HistoryPanel extends React.Component<{}, StateType> {
   constructor(props: any) {
     super(props);
 
-    this.onClick = this.onClick.bind(this);
     this.handleConfirmDeleteHistory = this.handleConfirmDeleteHistory.bind(this);
     this.handleSelectDeletedHistoryItem = this.handleSelectDeletedHistoryItem.bind(this);
     this.handleSelectAllHistoryItem = this.handleSelectAllHistoryItem.bind(this);
@@ -46,22 +64,12 @@ class HistoryPanel extends React.Component<{}, StateType> {
 
     this.state = {
       historyItems: [],
-      menuItems: [
-        {label: '星期二, 2019年12月17日(今天)'},
-        {label: '星期一, 2019年12月16日'},
-      ],
     };
 
     this.subject$ = new Subject<ActionType>();
     this.readyToBeDeletedHistoryItems$ = new BehaviorSubject<string[]>([]);
   }
 
-  onClick() {
-    this.subject$.next({
-      type: HISTORY_ITEM_SEARCH,
-      payload: {text: ''}
-    });
-  }
 
   handleSelectAllHistoryItem(event: ChangeEvent<HTMLInputElement>) {
     this.subject$.next({
@@ -89,7 +97,11 @@ class HistoryPanel extends React.Component<{}, StateType> {
   handleSearchHistory(text: string) {
     this.subject$.next({
       type: HISTORY_ITEM_SEARCH,
-      payload: {text,}
+      payload: {
+        text, startTime: new Date(2019,0,1),
+        endTime: endOfToday(),
+        maxResults: 1000,
+      }
     });
   }
 
@@ -115,6 +127,13 @@ class HistoryPanel extends React.Component<{}, StateType> {
             })
           });
         });
+
+        if (this.state.historyItems.length) {
+          historyStore.getVisits({url: this.state.historyItems[0].url}).then(function (result) {
+            console.log('result--->', result);
+          });
+        }
+        mergeHistoryItems(this.state.historyItems);
       }
 
       if (action.type === ADD_TO_READY_TO_DELETED_HISTORY_ITEMS) {
@@ -149,7 +168,7 @@ class HistoryPanel extends React.Component<{}, StateType> {
 
     this.subject$.next({
       type: HISTORY_ITEM_SEARCH,
-      payload: {text: ''}
+      payload: {text: '', startTime: startOfToday(), endTime: endOfToday()}
     });
   }
 
@@ -173,20 +192,12 @@ class HistoryPanel extends React.Component<{}, StateType> {
       <section className={`${styles['panel']} box`}>
         <SearchBar handleSearchHistory={this.handleSearchHistory}/>
         <div className={styles['content-wrap']}>
-          <div className={styles['date-col']}>
-            <div className={styles['title']}>日期</div>
-            {
-              menuItems.map(function (item) {
-                return <div className={styles['menu-item']} key={item.label}>
-                  {item.label}
-                </div>;
-              })
-            }
-          </div>
           <div className={styles['content']}>
             <div className={styles['cols']}>
+              <div className={styles['date-col']}>日期</div>
               <div className={styles['title-col']}>标题</div>
               <div className={styles['url-col']}>地址</div>
+              <div className={styles['visit-count-col']}>浏览量</div>
               <div className={styles['op-col']}>
                 <label className="checkbox">
                   <input type="checkbox" onChange={this.handleSelectAllHistoryItem}></input>
@@ -194,6 +205,7 @@ class HistoryPanel extends React.Component<{}, StateType> {
               </div>
             </div>
             <div>
+              <div className={styles['date-row']}>星期五, 2019年12月26日</div>
               {
                 historyItems.map((item) => {
                   return <HistoryItem key={item.id} {...item}
