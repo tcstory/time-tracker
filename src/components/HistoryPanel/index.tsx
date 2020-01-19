@@ -1,3 +1,6 @@
+/* tslint:disable */
+/* eslint-disable */
+
 import * as React from "react";
 import {ChangeEvent} from "react";
 import {BehaviorSubject, Subject} from "rxjs";
@@ -23,12 +26,13 @@ export interface ExtendHistoryItemType extends HistoryItemType {
 
 interface MenuItemType {
   label: string;
-  value: number;
+  value: string | number;
 }
 
 interface StateType {
   historyItems: ExtendHistoryItemType[];
   menuItems: MenuItemType[];
+  timeRange: MenuItemType[];
 }
 
 const HISTORY_PAGE_VISIT_SEARCH = 'history_page_visit_search';
@@ -77,7 +81,7 @@ class HistoryPanel extends React.Component<{}, StateType> {
     this.state = {
       historyItems: [],
       menuItems: [],
-      timeRage: [
+      timeRange: [
         {label: '1个小时以前', value: 'an_hour_ago'},
         {label: '7天内', value: 'within_7_days'},
         {label: '7天内', value: 'within_7_days'},

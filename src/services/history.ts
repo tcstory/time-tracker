@@ -1,3 +1,6 @@
+/* tslint:disable */
+/* eslint-disable */
+
 import {Subject, Observable} from 'rxjs';
 
 import {ActionType} from "../typings/Action";
