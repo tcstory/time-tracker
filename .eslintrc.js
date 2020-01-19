@@ -30,6 +30,6 @@ module.exports = {
         '@typescript-eslint/no-var-requires': ['off'],
         "@typescript-eslint/ban-ts-ignore": ["off"],
         "@typescript-eslint/no-explicit-any": ["off"],
-        "@typescript-eslint/explicit-function-return-type": ["off"]
+        "@typescript-eslint/explicit-function-return-type": ["off"],
     }
 };

@@ -32,12 +32,8 @@
   @include opCol();
 }
 
-.visit-count-item {
-  @include baseCol(0, 60px);
-  text-align: right;
-}
-
 .visit-time-item {
+  @include item();
   @include baseCol(0, 180px);
   text-align: right;
 }

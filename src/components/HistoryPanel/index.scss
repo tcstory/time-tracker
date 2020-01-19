@@ -47,11 +47,6 @@
   @include opCol();
 }
 
-.visit-count-col {
-  @include baseCol(0, 60px);
-  @include headerCol();
-}
-
 .date-row {
   height: 24px;
   line-height: 24px;
